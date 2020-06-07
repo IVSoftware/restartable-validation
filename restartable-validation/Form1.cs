@@ -98,34 +98,36 @@ namespace async_delete_many_files
         {
             _progress = 0;
             // Run some portion of validity code then check for cancellation.
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();   // i.e. some code {...}
             // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
-            if (CheckForRestart(ct)) return;
+            if (CheckForCancel(ct)) return;
             RunPartialValidityTest();
         }
 
-        private bool CheckForRestart(CancellationToken ct)
+        private bool CheckForCancel(CancellationToken ct)
         {
             return ct.IsCancellationRequested;
         }
 
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        // SIMULATE "Running a portion of the validation code"
         private void RunPartialValidityTest()
         { 
             // Send progress notifications to UI thread
@@ -139,6 +141,7 @@ namespace async_delete_many_files
             _progress++;
             Progress?.Invoke(this, EventArgs.Empty);
         }
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         event EventHandler Progress;
 
